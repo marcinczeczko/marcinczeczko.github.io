@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Cookies in Chrome and Safari &middot; Marcin&#39;s Tech Blog</title>
+
+		
+  		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Marcin&#39;s Tech Blog" />
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/">
+					<h2 class="nav-title">Marcin&#39;s Tech Blog</h2>
+				</a>
+				<ul>
+    <li><a href="/about">About</a></li>
+    <li><a href="/">Posts</a></li>
+</ul>
+			</div>
+		</nav>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+    <span>Written by</span>
+            <a href="https://github.com/marcinczeczko">Marcin Czeczko</a>
+        <br>
+        <span>on&nbsp;</span><time datetime="2019-08-05 00:00:00 &#43;0000 UTC">August 5, 2019</time>
+</div>
+		<h1 class="post-title">Cookies in Chrome and Safari</h1>
+<div class="post-line"></div>
+
+		
+
+		
+
+<p>You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies.</p>
+
+<p><img src="/images/cookies-post.jpg" alt="cookies" /></p>
+
+<h3 id="cookies-samesite-attribute">Cookies <code>SameSite</code> attribute</h3>
+
+<p>Google recently announced that starting with <a href="https://www.chromestatus.com/feature/5088147346030592">Chrome 76</a>, planned for a July 30, 2019 release, web developers will need to explicitly specify which cookies can work across websites. This is just a preview that user might want to enable, but starting from <a href="https://www.chromestatus.com/feature/5088147346030592">Chrome 80</a> it&rsquo;s going to be a default.</p>
+
+<p>We all know five cookie attributes: <code>path</code>, <code>domain</code>, <code>expire</code>, <code>httpOnly</code>, <code>secure</code>. New policy will start enforcing a new attribute: <code>SameSite</code></p>
+
+<p>According to the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie">Mozilla</a> docs, the new attribute:</p>
+
+<blockquote>
+<p>Allows servers to assert that a cookie ought not to be sent along with cross-site requests, which provides some protection against cross-site request forgery attacks (CSRF).</p>
+</blockquote>
+
+<p>The idea is to have a simple attribute for cookies, which tells the web browser whether or not it should submit the cookie in a request from a different website. <code>SameSite</code> is a another level of security that you might introduce to your website among others like CSRF tokens. You should consider start using it to benefit better security.</p>
+
+<p>Let me give you an naive example. A sample JS on your <code>example.com</code> website can drop such a cookie as follows:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-html" data-lang="html"><span></span><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">script</span><span style="color: #f8f8f2">&gt;</span>
+    <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">cookie</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;foo=bar;SameSite=Strict;path=/&quot;</span><span style="color: #f8f8f2">;</span>
+<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">script</span><span style="color: #f8f8f2">&gt;</span>
+</code></pre></div>
+
+
+<p>The above code would cause the browser to create a cookie <code>foo=bar</code>with <code>SameSite</code> set to <code>Strict</code>. This cookie then could not be utilized in any sort of cross domain attack on the site that set it.</p>
+
+<p>The attribute supports other values, relaxing the policy a little bit. See <a href="https://web.dev/samesite-cookies-explained">an article explaing the new attribute in details</a>. Additionally, very <a href="https://medium.com/compass-security/samesite-cookie-attribute-33b3bfeaeb95">usefull post with sample website</a> when you can test how such cookies behaves in Chrome but also on other browsers.</p>
+
+<p>I was mentioned Chrome, but in fact majority of the browsers supports that attribute as you can find on <a href="https://caniuse.com/#feat=same-site-cookie-attribute">caniuse.com</a>.</p>
+
+<p>An interesting reading about how <a href="https://medium.com/adobetech/adobe-target-announces-support-for-google-chromes-new-samesite-cookie-policies-b7f2b121958f">Adobe&rsquo;s Target implementation</a> deals with latest Chrome update.</p>
+
+<h3 id="intelligent-tracking-prevention">Intelligent Tracking Prevention</h3>
+
+<p>New cookie policies in Chrome is just nothing what Apple implemented for Safari browsers both for MacOs and iOS.</p>
+
+<p>Apple has long included features to reduce tracking, first it defaulted to block all third-party cookies. Then they started to build Intelligent Tracking Prevention (ITP) that reduces cross-site tracking by limiting cookies and other data. Additionally, Apple gradually increases prevention from tracking by limiting of storage period (7 days or even 24h) for first-party cookies created via document API. Server-side cookies are not affected.</p>
+
+<p>See how <a href="https://webkit.org/blog/7675/intelligent-tracking-prevention/">Intelligent Tracking Prevention</a> gradually increases the visitor privacy in <a href="https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/">ITP 2.0</a>, <a href="https://webkit.org/blog/8613/intelligent-tracking-prevention-2-1/">ITP 2.1</a> and <a href="https://webkit.org/blog/8828/intelligent-tracking-prevention-2-2/">ITP 2.2</a>.</p>
+
+<p>But what it means for us, developers ?</p>
+
+<ul>
+<li>If you&rsquo;re using first-party client-side cookies to store information about the user, consider migrating to server-side cookies (via <code>Set-Cookie</code> response header) instead.</li>
+<li>If your solution uses 3rd-party cookies, you need to figure out a solution based on first-party cookies. Adobe&rsquo;s marketing technology solutions (Visitor ID, Target or Analytics) were heavily relied on 3rd-party cookies, or client-side cookies. See hew Adobe mitigates ITP impact for <a href="https://medium.com/adobetech/safari-itp-2-1-impact-on-adobe-experience-cloud-customers-9439cecb55ac">Adobe Experience Cloud</a> solutions or <a href="https://medium.com/adobetech/keep-on-personalizing-adobe-target-supports-apple-safaris-itp-policies-for-cookies-b0bab20696c0">Adobe Target</a>.</li>
+<li>Verify, if tracking tag used on the website uses 3rd-party cookies, if yes they will not work on Safari. Check with the vendor if mitigations is provided by them.</li>
+<li>Single Sign-on solutions relying on 3rd party cookies might be affected. Check with the vendor, if ITP remediations are implemented/provided.</li>
+<li>Stay tuned with <a href="https://webkit.org/blog/category/privacy/">WebKit blog about privacy</a>, to see what&rsquo;s next comming up in this area.</li>
+</ul>
+
+
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/posts/graalvm/" class="left arrow">Previous Post</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+        		<footer>
+
+		</footer>
+
+    </body>
+</html>

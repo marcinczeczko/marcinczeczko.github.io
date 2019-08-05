@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://marcinczeczko.github.io/posts/cookies/</loc>
+    <lastmod>2019-08-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marcinczeczko.github.io/</loc>
+    <lastmod>2019-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://marcinczeczko.github.io/posts/</loc>
+    <lastmod>2019-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://marcinczeczko.github.io/posts/graalvm/</loc>
+    <lastmod>2019-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marcinczeczko.github.io/posts/quarkus/</loc>
+    <lastmod>2019-08-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://marcinczeczko.github.io/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://marcinczeczko.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://marcinczeczko.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
