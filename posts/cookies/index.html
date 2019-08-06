@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
     <head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +13,51 @@
 		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
 		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+		
+		<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://marcinczeczko.github.io/images/cookies-post.jpg"/>
+
+<meta name="twitter:title" content="Cookies in Chrome and Safari"/>
+<meta name="twitter:description" content="You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies."/>
+
+  		<meta property="og:title" content="Cookies in Chrome and Safari" />
+<meta property="og:description" content="You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://marcinczeczko.github.io/posts/cookies/" />
+
+<meta property="og:image" content="https://marcinczeczko.github.io/images/cookies-post.jpg" />
+<meta property="article:published_time" content="2019-08-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-08-05T00:00:00+00:00" />
+
+		
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-145147411-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+  		<meta itemprop="name" content="Cookies in Chrome and Safari">
+<meta itemprop="description" content="You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies.">
+
+
+<meta itemprop="datePublished" content="2019-08-05T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-08-05T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="610">
+
+  <meta itemprop="image" content="https://marcinczeczko.github.io/images/cookies-post.jpg">
+
+
+
+<meta itemprop="keywords" content="" />
+
 
 		
 		<link href="" rel="alternate" type="application/rss+xml" title="Marcin&#39;s Tech Blog" />
@@ -68,11 +113,9 @@
 
 <p>Let me give you an naive example. A sample JS on your <code>example.com</code> website can drop such a cookie as follows:</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><code class="language-html" data-lang="html"><span></span><span style="color: #f8f8f2">&lt;</span><span style="color: #f92672">script</span><span style="color: #f8f8f2">&gt;</span>
-    <span style="color: #f8f8f2">document.</span><span style="color: #a6e22e">cookie</span> <span style="color: #f92672">=</span> <span style="color: #e6db74">&quot;foo=bar;SameSite=Strict;path=/&quot;</span><span style="color: #f8f8f2">;</span>
-<span style="color: #f8f8f2">&lt;/</span><span style="color: #f92672">script</span><span style="color: #f8f8f2">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&#34;foo=bar;SameSite=Strict;path=/&#34;</span><span class="p">;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 
 <p>The above code would cause the browser to create a cookie <code>foo=bar</code>with <code>SameSite</code> set to <code>Strict</code>. This cookie then could not be utilized in any sort of cross domain attack on the site that set it.</p>
 
@@ -105,7 +148,7 @@
 	</div>
 
 	<div class="pagination">
-		<a href="/posts/graalvm/" class="left arrow">Previous Post</a>
+		<a href="/about/" class="left arrow">Previous Post</a>
 
 		<a href="#" class="top">Top</a>
 	</div>

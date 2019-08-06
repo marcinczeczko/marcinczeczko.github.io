@@ -5,7 +5,8 @@
     <link>https://marcinczeczko.github.io/</link>
     <description>Recent content on Marcin&#39;s Tech Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
     <lastBuildDate>Mon, 05 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://marcinczeczko.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -18,24 +19,6 @@
       
       <guid>https://marcinczeczko.github.io/posts/cookies/</guid>
       <description>You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies.</description>
-    </item>
-    
-    <item>
-      <title>What is GraalVM ?</title>
-      <link>https://marcinczeczko.github.io/posts/graalvm/</link>
-      <pubDate>Sun, 04 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://marcinczeczko.github.io/posts/graalvm/</guid>
-      <description>TBD</description>
-    </item>
-    
-    <item>
-      <title>Quarkus, a supersonic Java</title>
-      <link>https://marcinczeczko.github.io/posts/quarkus/</link>
-      <pubDate>Sat, 03 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://marcinczeczko.github.io/posts/quarkus/</guid>
-      <description>TBD</description>
     </item>
     
     <item>
