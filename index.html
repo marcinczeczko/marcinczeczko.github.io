@@ -116,7 +116,18 @@ if (!doNotTrack) {
 			 if (type == 'opt-in' && didConsent) {
 				window['ga-disable-UA-145147411-1'] = false;	
 			 }
-		  },
+		  	},
+		  	onStatusChange: function(status, chosenBefore) {
+			 var type = this.options.type;
+			 var didConsent = this.hasConsented();
+			 if (type == 'opt-in' && didConsent) {
+			  window['ga-disable-UA-145147411-1'] = false;
+			  ga('send', 'pageview');
+			 }
+			 if (type == 'opt-out' && !didConsent) {
+			  window['ga-disable-UA-145147411-1'] = false;
+			 }
+			},
 		  palette: {
 		    "popup": {
 		      "background": "#0f0f0f",
