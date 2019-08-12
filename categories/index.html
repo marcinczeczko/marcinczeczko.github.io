@@ -8,14 +8,19 @@
 
 		
   		<link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/fontawesome/css/fontawesome.css">
+		<link rel="stylesheet" href="/fontawesome/css/brands.css">
+		<link rel="stylesheet" href="/fontawesome/css/solid.css">
+
 		
 		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
 		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-
+ 
 		
 		<script>
 			window['ga-disable-UA-145147411-1'] = true;
@@ -79,48 +84,67 @@ if (!doNotTrack) {
 </main>
 
 
-        		<footer>
+				<footer>
 
 		</footer>
 
-
-        <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+		<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        onInitialise: function (status) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+            if (type == 'opt-in' && didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;	
+            }
+        },
+        onStatusChange: function(status, chosenBefore) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+            if (type == 'opt-in' && didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;
+            ga('send', 'pageview');
+            }
+            if (type == 'opt-out' && !didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;
+            }
+        },
+        palette: {
+        "popup": {
+            "background": "#0f0f0f",
+            "text": "#f0f0f0"
+        },
+        "button": {
+            "background": "transparent",
+            "text": "#fafafa",
+            "border": "#ffffff"
+        }
+        },
+        type: "opt-in",
+        content: {
+        "dismiss": "Decline"
+        }
+    });
+</script>
 		<script>
-		window.cookieconsent.initialise({
-		   onInitialise: function (status) {
-			 var type = this.options.type;
-			 var didConsent = this.hasConsented();
-			 if (type == 'opt-in' && didConsent) {
-				window['ga-disable-UA-145147411-1'] = false;	
-			 }
-		  	},
-		  	onStatusChange: function(status, chosenBefore) {
-			 var type = this.options.type;
-			 var didConsent = this.hasConsented();
-			 if (type == 'opt-in' && didConsent) {
-			  window['ga-disable-UA-145147411-1'] = false;
-			  ga('send', 'pageview');
-			 }
-			 if (type == 'opt-out' && !didConsent) {
-			  window['ga-disable-UA-145147411-1'] = false;
-			 }
-			},
-		  palette: {
-		    "popup": {
-		      "background": "#0f0f0f",
-		      "text": "#f0f0f0"
-		    },
-		    "button": {
-		      "background": "transparent",
-		      "text": "#fafafa",
-		      "border": "#ffffff"
-		    }
-		  },
-		  type: "opt-in",
-		  content: {
-		    "dismiss": "Decline"
-		  }
-		});
-		</script>
+    document.querySelectorAll('code.language-mermaid').forEach(function(el) {
+        var tag = '<div class="mermaid" align="center">' + el.innerHTML.replace(/&amp;/g, '&') + '</div>';
+        el.parentElement.parentElement.outerHTML = tag;
+    });
+</script>
+
+<script src="/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        theme: 'forest',
+        
+        logLevel: 3,
+        flowchart: { 
+            curve: 'linear'
+        },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 },
+    });
+</script>
     </body>
 </html>

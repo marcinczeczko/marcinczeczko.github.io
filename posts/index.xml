@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 05 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 12 Aug 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://marcinczeczko.eu/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>What is GraalVM ?</title>
+      <link>https://marcinczeczko.eu/posts/graalvm/</link>
+      <pubDate>Mon, 12 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://marcinczeczko.eu/posts/graalvm/</guid>
+      <description>It happened the beginning of the year when I was scanning my Twitter feed. I came across a tweet announcing one of the GraalVM release candidates that were followed by a series of other interesting tweets.</description>
+    </item>
     
     <item>
       <title>Cookies in Chrome and Safari</title>
@@ -18,7 +27,7 @@
       <pubDate>Mon, 05 Aug 2019 00:00:00 +0000</pubDate>
       
       <guid>https://marcinczeczko.eu/posts/cookies/</guid>
-      <description>You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies.</description>
+      <description>You probably heard about Facebook - Cambridge Analytica scandal. You must hear about the GDPR in the EU. Moreover, there are probably more.</description>
     </item>
     
   </channel>

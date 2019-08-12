@@ -8,14 +8,19 @@
 
 		
   		<link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/fontawesome/css/fontawesome.css">
+		<link rel="stylesheet" href="/fontawesome/css/brands.css">
+		<link rel="stylesheet" href="/fontawesome/css/solid.css">
+
 		
 		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
 		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-
+ 
 		
 		<script>
 			window['ga-disable-UA-145147411-1'] = true;
@@ -29,7 +34,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://marcinczeczko.eu/posts/" />
 
-<meta property="og:updated_time" content="2019-08-05T00:00:00+00:00" />
+<meta property="og:updated_time" content="2019-08-12T00:00:00+00:00" />
 
 		
 <script type="application/javascript">
@@ -73,6 +78,19 @@ if (!doNotTrack) {
 <main>
 	<div class="catalogue">
 		
+			<a href="https://marcinczeczko.eu/posts/graalvm/" class="catalogue-item">
+    <div>
+        <time datetime="2019-08-12 00:00:00 &#43;0000 UTC" class="catalogue-time">August 12, 2019</time>
+        <h1 class="catalogue-title">What is GraalVM ?</h1>
+        <div class="catalogue-line"></div>
+
+        <p>
+            It happened the beginning of the year when I was scanning my Twitter feed. I came across a tweet announcing one of the GraalVM release candidates that were followed by a series of other interesting tweets.
+        </p>
+    </div>
+</a>
+
+		
 			<a href="https://marcinczeczko.eu/posts/cookies/" class="catalogue-item">
     <div>
         <time datetime="2019-08-05 00:00:00 &#43;0000 UTC" class="catalogue-time">August 5, 2019</time>
@@ -80,7 +98,7 @@ if (!doNotTrack) {
         <div class="catalogue-line"></div>
 
         <p>
-            You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies.
+            You probably heard about Facebook - Cambridge Analytica scandal. You must hear about the GDPR in the EU. Moreover, there are probably more.
         </p>
     </div>
 </a>
@@ -97,48 +115,67 @@ if (!doNotTrack) {
 </main>
 
 
-        		<footer>
+				<footer>
 
 		</footer>
 
-
-        <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+		<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        onInitialise: function (status) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+            if (type == 'opt-in' && didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;	
+            }
+        },
+        onStatusChange: function(status, chosenBefore) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+            if (type == 'opt-in' && didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;
+            ga('send', 'pageview');
+            }
+            if (type == 'opt-out' && !didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;
+            }
+        },
+        palette: {
+        "popup": {
+            "background": "#0f0f0f",
+            "text": "#f0f0f0"
+        },
+        "button": {
+            "background": "transparent",
+            "text": "#fafafa",
+            "border": "#ffffff"
+        }
+        },
+        type: "opt-in",
+        content: {
+        "dismiss": "Decline"
+        }
+    });
+</script>
 		<script>
-		window.cookieconsent.initialise({
-		   onInitialise: function (status) {
-			 var type = this.options.type;
-			 var didConsent = this.hasConsented();
-			 if (type == 'opt-in' && didConsent) {
-				window['ga-disable-UA-145147411-1'] = false;	
-			 }
-		  	},
-		  	onStatusChange: function(status, chosenBefore) {
-			 var type = this.options.type;
-			 var didConsent = this.hasConsented();
-			 if (type == 'opt-in' && didConsent) {
-			  window['ga-disable-UA-145147411-1'] = false;
-			  ga('send', 'pageview');
-			 }
-			 if (type == 'opt-out' && !didConsent) {
-			  window['ga-disable-UA-145147411-1'] = false;
-			 }
-			},
-		  palette: {
-		    "popup": {
-		      "background": "#0f0f0f",
-		      "text": "#f0f0f0"
-		    },
-		    "button": {
-		      "background": "transparent",
-		      "text": "#fafafa",
-		      "border": "#ffffff"
-		    }
-		  },
-		  type: "opt-in",
-		  content: {
-		    "dismiss": "Decline"
-		  }
-		});
-		</script>
+    document.querySelectorAll('code.language-mermaid').forEach(function(el) {
+        var tag = '<div class="mermaid" align="center">' + el.innerHTML.replace(/&amp;/g, '&') + '</div>';
+        el.parentElement.parentElement.outerHTML = tag;
+    });
+</script>
+
+<script src="/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        theme: 'forest',
+        
+        logLevel: 3,
+        flowchart: { 
+            curve: 'linear'
+        },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 },
+    });
+</script>
     </body>
 </html>

@@ -8,14 +8,19 @@
 
 		
   		<link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/fontawesome/css/fontawesome.css">
+		<link rel="stylesheet" href="/fontawesome/css/brands.css">
+		<link rel="stylesheet" href="/fontawesome/css/solid.css">
+
 		
 		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
 		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
 
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-
+ 
 		
 		<script>
 			window['ga-disable-UA-145147411-1'] = true;
@@ -24,10 +29,10 @@
 <meta name="twitter:image" content="https://marcinczeczko.eu/images/cookies-post.jpg"/>
 
 <meta name="twitter:title" content="Cookies in Chrome and Safari"/>
-<meta name="twitter:description" content="You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies."/>
+<meta name="twitter:description" content="You probably heard about Facebook - Cambridge Analytica scandal. You must hear about the GDPR in the EU. Moreover, there are probably more."/>
 
   		<meta property="og:title" content="Cookies in Chrome and Safari" />
-<meta property="og:description" content="You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies." />
+<meta property="og:description" content="You probably heard about Facebook - Cambridge Analytica scandal. You must hear about the GDPR in the EU. Moreover, there are probably more." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://marcinczeczko.eu/posts/cookies/" />
 
@@ -51,12 +56,12 @@ if (!doNotTrack) {
 </script>
 
   		<meta itemprop="name" content="Cookies in Chrome and Safari">
-<meta itemprop="description" content="You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies.">
+<meta itemprop="description" content="You probably heard about Facebook - Cambridge Analytica scandal. You must hear about the GDPR in the EU. Moreover, there are probably more.">
 
 
 <meta itemprop="datePublished" content="2019-08-05T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-08-05T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="610">
+<meta itemprop="wordCount" content="625">
 
   <meta itemprop="image" content="https://marcinczeczko.eu/images/cookies-post.jpg">
 
@@ -87,10 +92,10 @@ if (!doNotTrack) {
 <main>
 	<div class="post">
 		<div class="post-info">
-    <span>Written by</span>
-            <a href="https://github.com/marcinczeczko">Marcin Czeczko</a>
-        <br>
-        <span>on&nbsp;</span><time datetime="2019-08-05 00:00:00 &#43;0000 UTC">August 5, 2019</time>
+    
+        
+        
+        <time datetime="2019-08-05 00:00:00 &#43;0000 UTC">August 5, 2019</time>
 </div>
 		<h1 class="post-title">Cookies in Chrome and Safari</h1>
 <div class="post-line"></div>
@@ -99,15 +104,15 @@ if (!doNotTrack) {
 
 		
 
-<p>You probably heard about Facebook - Cambridge Analytica scandal. You must heard about GDPR in EU. And there are probably more. Privacy and security on the web becomes a big deal to many consumers, so IT giants like Apple or Google takes their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies.</p>
+<p>You probably heard about Facebook - Cambridge Analytica scandal. You must hear about the GDPR in the EU. Moreover, there are probably more. Privacy and security on the web become a big deal to many consumers, so IT giants like Apple or Google take their effort by introducing privacy and security measures in their browsers by limiting the usage of cookies.</p>
 
 <p><img src="/images/cookies-post.jpg" alt="cookies" /></p>
 
 <h3 id="cookies-samesite-attribute">Cookies <code>SameSite</code> attribute</h3>
 
-<p>Google recently announced that starting with <a href="https://www.chromestatus.com/feature/5088147346030592">Chrome 76</a>, planned for a July 30, 2019 release, web developers will need to explicitly specify which cookies can work across websites. This is just a preview that user might want to enable, but starting from <a href="https://www.chromestatus.com/feature/5088147346030592">Chrome 80</a> it&rsquo;s going to be a default.</p>
+<p>Google recently announced that starting with <a href="https://www.chromestatus.com/feature/5088147346030592">Chrome 76</a>, planned for a July 30, 2019 release, web developers need to specify which cookies can work across websites explicitly. That is just a preview that users might want to enable, but starting from <a href="https://www.chromestatus.com/feature/5088147346030592">Chrome 80</a> it&rsquo;s going to be a default.</p>
 
-<p>We all know five cookie attributes: <code>path</code>, <code>domain</code>, <code>expire</code>, <code>httpOnly</code>, <code>secure</code>. New policy will start enforcing a new attribute: <code>SameSite</code></p>
+<p>We all know five cookie attributes: path<code>,</code>domain<code>,</code>expire<code>,</code>httpOnly<code>,</code>secure<code>. The new policy starts enforcing a new attribute:</code>SameSite`.</p>
 
 <p>According to the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie">Mozilla</a> docs, the new attribute:</p>
 
@@ -115,40 +120,43 @@ if (!doNotTrack) {
 <p>Allows servers to assert that a cookie ought not to be sent along with cross-site requests, which provides some protection against cross-site request forgery attacks (CSRF).</p>
 </blockquote>
 
-<p>The idea is to have a simple attribute for cookies, which tells the web browser whether or not it should submit the cookie in a request from a different website. <code>SameSite</code> is a another level of security that you might introduce to your website among others like CSRF tokens. You should consider start using it to benefit better security.</p>
+<p>The idea is to have a single attribute for cookies, which tells the web browser whether or not it should submit the cookie in a request from a different website. <code>SameSite</code> is another level of security that you might introduce to your website among others like CSRF tokens. You should consider starting using it to benefit better security.</p>
 
-<p>Let me give you an naive example. A sample JS on your <code>example.com</code> website can drop such a cookie as follows:</p>
+<p>Let me give you a simple example. A sample JS on your <code>example.com</code> website can drop such a cookie as follows:</p>
 
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="s2">&#34;foo=bar;SameSite=Strict;path=/&#34;</span><span class="p">;</span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 
-<p>The above code would cause the browser to create a cookie <code>foo=bar</code>with <code>SameSite</code> set to <code>Strict</code>. This cookie then could not be utilized in any sort of cross domain attack on the site that set it.</p>
+<p>The above code would cause the browser to create a cookie <code>foo=bar</code> with <code>SameSite</code> set to <code>Strict</code>. The cookie then could not be utilized in any cross-domain attack on the site that set it.</p>
 
-<p>The attribute supports other values, relaxing the policy a little bit. See <a href="https://web.dev/samesite-cookies-explained">an article explaing the new attribute in details</a>. Additionally, very <a href="https://medium.com/compass-security/samesite-cookie-attribute-33b3bfeaeb95">usefull post with sample website</a> when you can test how such cookies behaves in Chrome but also on other browsers.</p>
+<p>The attribute supports other values, relaxing the policy a little bit. See <a href="https://web.dev/samesite-cookies-explained">an article explains the new attribute in details</a>. Additionally, very <a href="https://medium.com/compass-security/samesite-cookie-attribute-33b3bfeaeb95">usefull post with sample website</a> when you can test how such cookies behave in Chrome but also on other browsers.</p>
 
-<p>I was mentioned Chrome, but in fact majority of the browsers supports that attribute as you can find on <a href="https://caniuse.com/#feat=same-site-cookie-attribute">caniuse.com</a>.</p>
+<p>I mentioned Chrome, but other browsers support it too. You can find the support level on <a href="https://caniuse.com/#feat=same-site-cookie-attribute">caniuse.com</a>.</p>
 
 <p>An interesting reading about how <a href="https://medium.com/adobetech/adobe-target-announces-support-for-google-chromes-new-samesite-cookie-policies-b7f2b121958f">Adobe&rsquo;s Target implementation</a> deals with latest Chrome update.</p>
 
 <h3 id="intelligent-tracking-prevention">Intelligent Tracking Prevention</h3>
 
-<p>New cookie policies in Chrome is just nothing what Apple implemented for Safari browsers both for MacOs and iOS.</p>
+<p><img src="/images/staysoniphone.jpeg" alt="cookies" /></p>
 
-<p>Apple has long included features to reduce tracking, first it defaulted to block all third-party cookies. Then they started to build Intelligent Tracking Prevention (ITP) that reduces cross-site tracking by limiting cookies and other data. Additionally, Apple gradually increases prevention from tracking by limiting of storage period (7 days or even 24h) for first-party cookies created via document API. Server-side cookies are not affected.</p>
+<p>New cookie policy in Chrome is just nothing that Apple implemented for Safari browsers both for macOS and iOS.</p>
+
+<p>Apple has long included features to reduce tracking. First, it defaulted to block all third-party cookies. Then they started to build Intelligent Tracking Prevention (ITP) that reduces cross-site tracking by limiting cookies and other data. Additionally, Apple gradually increases prevention from tracking by limiting of storage period (7 days or even 24h) for first-party cookies created via document API. Server-side cookies are not affected.</p>
 
 <p>See how <a href="https://webkit.org/blog/7675/intelligent-tracking-prevention/">Intelligent Tracking Prevention</a> gradually increases the visitor privacy in <a href="https://webkit.org/blog/8311/intelligent-tracking-prevention-2-0/">ITP 2.0</a>, <a href="https://webkit.org/blog/8613/intelligent-tracking-prevention-2-1/">ITP 2.1</a> and <a href="https://webkit.org/blog/8828/intelligent-tracking-prevention-2-2/">ITP 2.2</a>.</p>
 
-<p>But what it means for us, developers ?</p>
+<p><strong>What does it mean for us, developers?</strong></p>
 
-<ul>
-<li>If you&rsquo;re using first-party client-side cookies to store information about the user, consider migrating to server-side cookies (via <code>Set-Cookie</code> response header) instead.</li>
-<li>If your solution uses 3rd-party cookies, you need to figure out a solution based on first-party cookies. Adobe&rsquo;s marketing technology solutions (Visitor ID, Target or Analytics) were heavily relied on 3rd-party cookies, or client-side cookies. See hew Adobe mitigates ITP impact for <a href="https://medium.com/adobetech/safari-itp-2-1-impact-on-adobe-experience-cloud-customers-9439cecb55ac">Adobe Experience Cloud</a> solutions or <a href="https://medium.com/adobetech/keep-on-personalizing-adobe-target-supports-apple-safaris-itp-policies-for-cookies-b0bab20696c0">Adobe Target</a>.</li>
-<li>Verify, if tracking tag used on the website uses 3rd-party cookies, if yes they will not work on Safari. Check with the vendor if mitigations is provided by them.</li>
-<li>Single Sign-on solutions relying on 3rd party cookies might be affected. Check with the vendor, if ITP remediations are implemented/provided.</li>
-</ul>
+<p>If you&rsquo;re using first-party client-side cookies to store information about the user, consider leveraging local storage or migrating to server-side cookies (via <code>Set-Cookie</code> response header) instead. There is a great research made by Simo Ahava about <a href="https://www.simoahava.com/analytics/itp-2-1-and-web-analytics/">all possible solutions that mitigate ITP restrictions</a> that&rsquo;s worth to explore.</p>
 
-<p>Stay tuned with <a href="https://webkit.org/blog/category/privacy/">WebKit blog about privacy</a>, to see what&rsquo;s next comming up in this area.</p>
+<p>If your solution uses 3rd-party cookies, you need to figure out a solution based on first-party cookies. Adobe&rsquo;s marketing technology solutions (Visitor ID, Target, or Analytics) heavily relied on 3rd-party cookies or client-side cookies. See hew Adobe mitigates ITP impact for <a href="https://medium.com/adobetech/safari-itp-2-1-impact-on-adobe-experience-cloud-customers-9439cecb55ac">Adobe Experience Cloud</a> solutions or <a href="https://medium.com/adobetech/keep-on-personalizing-adobe-target-supports-apple-safaris-itp-policies-for-cookies-b0bab20696c0">Adobe Target</a>.</p>
+
+<p>Verify, if tracking tag used on the website uses 3rd-party cookies, if yes then in the worst case it stops working on Safari. Check with the vendor if they provide mitigations.</p>
+
+<p>Single Sign-on solutions relying on 3rd party cookies might be affected. Check with the vendor, if ITP remediations are implemented/provided.</p>
+
+<p>Stay tuned with <a href="https://webkit.org/blog/category/privacy/">WebKit blog about privacy</a>, to see what&rsquo;s next coming up in this area.</p>
 
 
 		
@@ -174,54 +182,74 @@ if (!doNotTrack) {
 
 	<div class="pagination">
 		<a href="/about/" class="left arrow">Previous Post</a>
+		<a href="/posts/graalvm/" class="right arrow">Next Post</a>
 
 		<a href="#" class="top">Top</a>
 	</div>
 </main>
 
 
-        		<footer>
+				<footer>
 
 		</footer>
 
-
-        <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+		<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        onInitialise: function (status) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+            if (type == 'opt-in' && didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;	
+            }
+        },
+        onStatusChange: function(status, chosenBefore) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+            if (type == 'opt-in' && didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;
+            ga('send', 'pageview');
+            }
+            if (type == 'opt-out' && !didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;
+            }
+        },
+        palette: {
+        "popup": {
+            "background": "#0f0f0f",
+            "text": "#f0f0f0"
+        },
+        "button": {
+            "background": "transparent",
+            "text": "#fafafa",
+            "border": "#ffffff"
+        }
+        },
+        type: "opt-in",
+        content: {
+        "dismiss": "Decline"
+        }
+    });
+</script>
 		<script>
-		window.cookieconsent.initialise({
-		   onInitialise: function (status) {
-			 var type = this.options.type;
-			 var didConsent = this.hasConsented();
-			 if (type == 'opt-in' && didConsent) {
-				window['ga-disable-UA-145147411-1'] = false;	
-			 }
-		  	},
-		  	onStatusChange: function(status, chosenBefore) {
-			 var type = this.options.type;
-			 var didConsent = this.hasConsented();
-			 if (type == 'opt-in' && didConsent) {
-			  window['ga-disable-UA-145147411-1'] = false;
-			  ga('send', 'pageview');
-			 }
-			 if (type == 'opt-out' && !didConsent) {
-			  window['ga-disable-UA-145147411-1'] = false;
-			 }
-			},
-		  palette: {
-		    "popup": {
-		      "background": "#0f0f0f",
-		      "text": "#f0f0f0"
-		    },
-		    "button": {
-		      "background": "transparent",
-		      "text": "#fafafa",
-		      "border": "#ffffff"
-		    }
-		  },
-		  type: "opt-in",
-		  content: {
-		    "dismiss": "Decline"
-		  }
-		});
-		</script>
+    document.querySelectorAll('code.language-mermaid').forEach(function(el) {
+        var tag = '<div class="mermaid" align="center">' + el.innerHTML.replace(/&amp;/g, '&') + '</div>';
+        el.parentElement.parentElement.outerHTML = tag;
+    });
+</script>
+
+<script src="/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        theme: 'forest',
+        
+        logLevel: 3,
+        flowchart: { 
+            curve: 'linear'
+        },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 },
+    });
+</script>
     </body>
 </html>

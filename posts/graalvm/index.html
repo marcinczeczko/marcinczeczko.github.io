@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>What is GraalVM ? &middot; Marcin&#39;s Tech Blog</title>
+
+		
+  		<link rel="stylesheet" href="/css/style.css">
+		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/fontawesome/css/fontawesome.css">
+		<link rel="stylesheet" href="/fontawesome/css/brands.css">
+		<link rel="stylesheet" href="/fontawesome/css/solid.css">
+
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+ 
+		
+		<script>
+			window['ga-disable-UA-145147411-1'] = true;
+		</script>
+		<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="What is GraalVM ?"/>
+<meta name="twitter:description" content="It happened the beginning of the year when I was scanning my Twitter feed. I came across a tweet announcing one of the GraalVM release candidates that were followed by a series of other interesting tweets."/>
+
+  		<meta property="og:title" content="What is GraalVM ?" />
+<meta property="og:description" content="It happened the beginning of the year when I was scanning my Twitter feed. I came across a tweet announcing one of the GraalVM release candidates that were followed by a series of other interesting tweets." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://marcinczeczko.eu/posts/graalvm/" />
+<meta property="article:published_time" content="2019-08-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-08-12T00:00:00+00:00" />
+
+		
+<script type="application/javascript">
+var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+var doNotTrack = (dnt == "1" || dnt == "yes");
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-145147411-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+
+  		<meta itemprop="name" content="What is GraalVM ?">
+<meta itemprop="description" content="It happened the beginning of the year when I was scanning my Twitter feed. I came across a tweet announcing one of the GraalVM release candidates that were followed by a series of other interesting tweets.">
+
+
+<meta itemprop="datePublished" content="2019-08-12T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-08-12T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1224">
+
+
+
+<meta itemprop="keywords" content="" />
+
+
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Marcin&#39;s Tech Blog" />
+	</head>
+
+    <body>
+        		<nav class="nav">
+			<div class="nav-container">
+				<a href="/">
+					<h2 class="nav-title">Marcin&#39;s Tech Blog</h2>
+				</a>
+				<ul>
+    <li><a href="/about">About</a></li>
+    <li><a href="/">Posts</a></li>
+</ul>
+			</div>
+		</nav>
+
+        
+
+<main>
+	<div class="post">
+		<div class="post-info">
+    
+        
+        
+        <time datetime="2019-08-12 00:00:00 &#43;0000 UTC">August 12, 2019</time>
+</div>
+		<h1 class="post-title">What is GraalVM ?</h1>
+<div class="post-line"></div>
+
+		
+
+		
+
+<p>It happened the beginning of the year when I was scanning my Twitter feed. I came across a tweet announcing one of the GraalVM release candidates that were followed by a series of other interesting tweets. It was evident that buzz around GraalVM has already started. I was wondering why.
+A few more tweets and articles, I found that the whole Java ecosystem is getting crazy with <a href="https://www.graalvm.org">GraalVM</a>. More and more frameworks started to announce support for GraalVM proudly, and people began to embrace it for the Serverless and containers.</p>
+
+<h2 id="what-is-graalvm">What is GraalVM?</h2>
+
+<p>According to GraalVM website:</p>
+
+<blockquote>
+<p>GraalVM is a universal virtual machine for running applications written in JavaScript, Python, Ruby, R, JVM-based languages like Java, Scala, Groovy, Kotlin, Clojure, and LLVM-based languages such as C and C++.</p>
+</blockquote>
+
+<p>Before explaining and showing what it means, let see what&rsquo;s the history of it.</p>
+
+<h3 id="java-8">Java &gt;= 8</h3>
+
+<p>Up to Java 8, HotSpot was the main Oracle Java virtual machine to run Java programs. The JVM was written in C/C++, and release by release was getting more and more complex. The purpose of the HotSpot JVM is to run Java bytecode. Running bytecode means:</p>
+
+<ul>
+<li>Interpret bytecode and execute it using machine code</li>
+<li>Continuously analyze the program performance for so-called &ldquo;hot spots&rdquo; that are often executed</li>
+<li>Once &ldquo;hot spots&rdquo; are identified then just-in-time (JIT) compile them into native code (machine code)</li>
+<li>Such in-time compiled code is then being executed natively, so no bytecode interpreter involved.</li>
+</ul>
+
+<h3 id="java-9">Java &gt; 9</h3>
+
+<p>Java 9 thanks to the <a href="https://openjdk.java.net/jeps/295">JEP295 proposal</a> got Ahead-of-time compilation feature - an ability to compile java classes to native code before launching JVM. It used <a href="https://openjdk.java.net/projects/graal/">Graal</a> as the code generating backend. Graal was a compiler written in Java that demonstrated it could generate highly optimized code. So the loop was closed - Java compiler was written in Java ;)
+The main downside of this approach is the <strong>platform-dependent native code</strong>.</p>
+
+<p><strong>Graal</strong> gave a foundation for a new project called <strong>GraalVM</strong>. <a href="https://github.com/oracle/graal">Oracle started to develop a new VM</a> to tackle with vast and complex C/C++ codebase of the HotSpot JVM but also to make VM polyglot (to run programs coded in any programming language).</p>
+
+<figure>
+    <img src="https://image.slidesharecdn.com/untitled-170821092946/95/polyglot-on-the-jvm-with-graal-15-638.jpg?cb=1503307918"
+         alt="Slide from Devoxx talk by Thomas Wurethinger"/> <figcaption>
+            <p>Slide from <a href="https://www.youtube.com/watch?v=mMmOntDWSgw">Devoxx talk</a> by Thomas Wurethinger</p>
+        </figcaption>
+</figure>
+
+
+<ul>
+<li>Java HotSpot VM - still C/C++ codebase but thanks to the <a href="https://openjdk.java.net/jeps/243">JEP 243 - Java level JVM Compiler interface</a>, it has an interface for Graal</li>
+<li>Graal is a dynamic java compiler written in Java</li>
+<li><a href="https://github.com/oracle/graal/tree/master/truffle">Truffle</a> which is an Open Source library (already part of GraalVM project) for building programming language implementations as interpreters for self-modifying Abstract Syntax Trees.</li>
+<li>Thanks to <strong>Truffle</strong>, GraalVM allows us to compile and execute code in many languages.</li>
+</ul>
+
+<p>In addition to the above the most interesting feature is ahead of time compilation:</p>
+
+<blockquote>
+<p>GraalVM allows you to compile your programs ahead-of-time into a native executable. The resulting program does not run on the Java HotSpot VM, but uses necessary components like memory management, thread scheduling from a different implementation of a virtual machine, called Substrate VM. Substrate VM is written in Java and compiled into the native executable. The resulting program has faster startup time and lower runtime memory overhead compared to a Java VM. - <a href="https://www.graalvm.org/docs/reference-manual/aot-compilation/">GraalVM about AOT</a></p>
+</blockquote>
+
+<p>Several projects have already accepted GraalVM for their applications. To name it few hottest ones: <a href="https://quarkus.io">Quarkus</a>, <a href="https://docs.micronaut.io/latest/guide/index.html#graal">Micronaut</a>, <a href="https://medium.com/oracledevs/helidon-flies-faster-with-graalvm-eea85287d2dc">Helidon</a>.
+For these frameworks, GraalVM native images significantly reduce the runtime memory requirements compared to running on HotSpot what makes them the right way to develop cloud-native applications.</p>
+
+<figure>
+    <img src="https://www.graalvm.org/resources/img/ms_memory_footprint.png"
+         alt="Frameworks memory footprint comparison by GraalVM"/> <figcaption>
+            <p>Frameworks memory footprint comparison by <a href="https://www.graalvm.org/docs/why-graal/">GraalVM</a></p>
+        </figcaption>
+</figure>
+
+
+<figure>
+    <img src="https://www.graalvm.org/resources/img/ms_startup_time.png"
+         alt="Frameworks startup time comparison by GraalVM"/> <figcaption>
+            <p>Frameworks startup time comparison by <a href="https://www.graalvm.org/docs/why-graal/">GraalVM</a></p>
+        </figcaption>
+</figure>
+
+
+<h2 id="how-to-start-with-graalvm">How to start with GraalVM?</h2>
+
+<p>If you want to try the code by yourself, you need to install GraalVM. There are <a href="https://www.graalvm.org/downloads/">two editions</a> of it - <strong>Community Edition (CE)</strong> and <strong>Enterprise Edition (EE)</strong>, for Linux, macOS and recently for Windows. However, native image generation is not yet available for Windows, so I&rsquo;d recommend using official <a href="https://hub.docker.com/r/oracle/graalvm-ce">Docker</a> images instead.</p>
+
+<h3 id="native-image-generation">Native image generation</h3>
+
+<p>Once you install GraalVM, you need to install addon with the native image generation feature using <code>gu install native-image</code> command.</p>
+
+<p>The result of the image generation is a stand-alone executable file that consists &ldquo;partial&rdquo; virtual machine called <strong><a href="https://github.com/oracle/graal/blob/master/substratevm/README.md">SubstrateVM</a></strong> that holds a subset of JVM components, such as thread scheduling, simple garbage collector. However, many are not in, e.g., dynamic loading of classes, no security manager, JMX, to name it a few.  It&rsquo;s because they are no longer make sense in the native image.</p>
+
+<p>So, imagine classic hello world class.
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">class</span> <span class="n">HelloWorld</span> <span class="p">{</span>
+  <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Hello, World!&#34;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div></p>
+
+<p>Run the following commands to build a native image for your current platform (if you build using Docker container, you need to run it on the container too).</p>
+<div class="highlight"><pre class="chroma">$ javac HelloWorld.java
+$ native-image HelloWorld</pre></div>
+<p>and then run it:</p>
+<div class="highlight"><pre class="chroma">$ ./helloworld
+Hello, World!</pre></div>
+<h3 id="mixing-languages">Mixing languages</h3>
+
+<p>Let&rsquo;s take a quick example from GraalVM documentation to show you an idea how languages can cooperate together. A Java code that does:</p>
+
+<ul>
+<li><strong>Java</strong>: Reads standard input</li>
+<li><strong>JS</strong>: Parses the string into a JSON object and returns in a pretty format</li>
+<li><strong>Java</strong>: prints out result to standard output.</li>
+</ul>
+
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">io</span><span class="p">.</span><span class="o">*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nf">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">stream</span><span class="p">.</span><span class="o">*</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nf">org</span><span class="p">.</span><span class="na">graalvm</span><span class="p">.</span><span class="na">polyglot</span><span class="p">.</span><span class="o">*</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="nf">class</span> <span class="n">PrettyPrintJSON</span> <span class="p">{</span>
+  <span class="kd">public</span> <span class="nf">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="p">[]</span> <span class="nf">args</span><span class="p">)</span> <span class="kd">throws</span> <span class="nf">IOException</span> <span class="p">{</span>
+    <span class="n">BufferedReader</span> <span class="nf">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="p">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">));</span>
+    <span class="n">String</span> <span class="nf">input</span> <span class="o">=</span> <span class="n">reader</span><span class="p">.</span><span class="na">lines</span><span class="p">().</span><span class="na">collect</span><span class="p">(</span><span class="n">Collectors</span><span class="p">.</span><span class="na">joining</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">lineSeparator</span><span class="p">()));</span>
+    <span class="k">try</span> <span class="p">(</span><span class="n">Context</span> <span class="nf">context</span> <span class="o">=</span> <span class="n">Context</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">&#34;js&#34;</span><span class="p">))</span> <span class="p">{</span>
+      <span class="n">Value</span> <span class="nf">parse</span> <span class="o">=</span> <span class="n">context</span><span class="p">.</span><span class="na">eval</span><span class="p">(</span><span class="s">&#34;js&#34;</span><span class="p">,</span> <span class="s">&#34;JSON.parse&#34;</span><span class="p">);</span>
+      <span class="n">Value</span> <span class="nf">stringify</span> <span class="o">=</span> <span class="n">context</span><span class="p">.</span><span class="na">eval</span><span class="p">(</span><span class="s">&#34;js&#34;</span><span class="p">,</span> <span class="s">&#34;JSON.stringify&#34;</span><span class="p">);</span>
+      <span class="n">Value</span> <span class="nf">result</span> <span class="o">=</span> <span class="n">stringify</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">parse</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="n">input</span><span class="p">),</span> <span class="kc">null</span><span class="p">,</span> <span class="n">2</span><span class="p">);</span>
+      <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">asString</span><span class="p">());</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Compile and build a native image</p>
+<div class="highlight"><pre class="chroma">$ javac PrettyPrintJSON.java
+$ native-image --language:js --initialize-at-build-time PrettyPrintJSON</pre></div>
+<p>Then run it:</p>
+<div class="highlight"><pre class="chroma">$ ./prettyprintjson &lt;&lt;EOF
+{&#34;GraalVM&#34;:{&#34;description&#34;:&#34;Language Abstraction Platform&#34;,&#34;supports&#34;:[&#34;combining languages&#34;,&#34;embedding languages&#34;,&#34;creating native images&#34;],&#34;languages&#34;: [&#34;Java&#34;,&#34;JavaScript&#34;,&#34;Node.js&#34;, &#34;Python&#34;, &#34;Ruby&#34;,&#34;R&#34;,&#34;LLVM&#34;]}}
+EOF</pre></div>
+<h2 id="what-else-can-i-do">What else can I do?</h2>
+
+<p>I suggest a few more readings to explore GraalVM capabilities and supporting tools. My favorite ones are the ability to create your own language that runs on VM or use Google Chrome browser developer tools to debug GraalVM languages.</p>
+
+<ul>
+<li><a href="https://medium.com/graalvm/graalvm-ten-things-12d9111f307d">Top 10 Things To Do With GraalVM</a> - great article with hands-on on top features &amp; GraalVM tools</li>
+<li><a href="https://github.com/marcinczeczko/quarkus-polyglot-example">My Github repo</a> where I show how to build a simple servlet that returns a page with a graph that was rendered by <strong>R lang</strong> code from Java. Everything stitched together by <a href="https://quarkus.io">Quarkus</a> framework that I&rsquo;m going to talk in the next posts.</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<p>So, why there is a hype on this? If you didn&rsquo;t find it already, the answer is Cloud and Containers!</p>
+
+<p><strong>Why ?</strong></p>
+
+<ul>
+<li>Run Java code faster (in JVM mode) thanks to optimized JIT. Alternatively, run your java code as a native image even much faster. That is important if you&rsquo;d like to scale your application very quickly or if you want to run your AWS Lambdas without the negative effect of cold start.</li>
+<li>If you dockerize your Java application, you usually end up in images having hundreds of MB, as it contains not only your app but all dependencies (<strong>jars</strong>) and the JVM itself. With native image, you can reduce container images to just <strong>a few megabytes</strong>.</li>
+</ul>
+
+<p><strong>What about limitations or drawbacks?</strong></p>
+
+<ul>
+<li>Building CI/CD pipeline is a challenging task as Ahead-of-time compilation takes a lot of time, and if your application is big enough it might takes tens of minutes.</li>
+<li>The native image does no support all Java features - see <a href="https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md">SubstrateVM limitations</a> for details. It is the most challenging part, as those limitations make the process of your application adoption pretty complicated. Especially if you&rsquo;re using frameworks that do not support GraalVM.</li>
+</ul>
+
+
+		
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'marcinczeczko';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+		
+	</div>
+
+	<div class="pagination">
+		<a href="/posts/cookies/" class="left arrow">Previous Post</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>
+
+
+				<footer>
+
+		</footer>
+
+		<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+<script>
+    window.cookieconsent.initialise({
+        onInitialise: function (status) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+            if (type == 'opt-in' && didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;	
+            }
+        },
+        onStatusChange: function(status, chosenBefore) {
+            var type = this.options.type;
+            var didConsent = this.hasConsented();
+            if (type == 'opt-in' && didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;
+            ga('send', 'pageview');
+            }
+            if (type == 'opt-out' && !didConsent) {
+            window['ga-disable-UA-145147411-1'] = false;
+            }
+        },
+        palette: {
+        "popup": {
+            "background": "#0f0f0f",
+            "text": "#f0f0f0"
+        },
+        "button": {
+            "background": "transparent",
+            "text": "#fafafa",
+            "border": "#ffffff"
+        }
+        },
+        type: "opt-in",
+        content: {
+        "dismiss": "Decline"
+        }
+    });
+</script>
+		<script>
+    document.querySelectorAll('code.language-mermaid').forEach(function(el) {
+        var tag = '<div class="mermaid" align="center">' + el.innerHTML.replace(/&amp;/g, '&') + '</div>';
+        el.parentElement.parentElement.outerHTML = tag;
+    });
+</script>
+
+<script src="/mermaid/mermaid.js"></script>
+<script>
+    mermaid.initialize({
+        theme: 'forest',
+        
+        logLevel: 3,
+        flowchart: { 
+            curve: 'linear'
+        },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 },
+    });
+</script>
+    </body>
+</html>
