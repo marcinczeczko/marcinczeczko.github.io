@@ -57,7 +57,7 @@ if (!doNotTrack) {
 
 <meta itemprop="datePublished" content="2019-08-12T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2019-08-12T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1224">
+<meta itemprop="wordCount" content="1500">
 
 
 
@@ -150,6 +150,8 @@ The main downside of this approach is the <strong>platform-dependent native code
 <p>GraalVM allows you to compile your programs ahead-of-time into a native executable. The resulting program does not run on the Java HotSpot VM, but uses necessary components like memory management, thread scheduling from a different implementation of a virtual machine, called Substrate VM. Substrate VM is written in Java and compiled into the native executable. The resulting program has faster startup time and lower runtime memory overhead compared to a Java VM. - <a href="https://www.graalvm.org/docs/reference-manual/aot-compilation/">GraalVM about AOT</a></p>
 </blockquote>
 
+<p>This isn&rsquo;t like <a href="http://launch4j.sourceforge.net/">Launch4J</a> or <code>javapackager</code> tool in Oracle&rsquo;s java that create a simple executable that points to your <code>.jar</code> and is bundled together with JRE. GraalVM makes real executable with a native code of subset of JVM (<strong>SubstrateVM</strong>) with your code AOT compiled.</p>
+
 <p>Several projects have already accepted GraalVM for their applications. To name it few hottest ones: <a href="https://quarkus.io">Quarkus</a>, <a href="https://docs.micronaut.io/latest/guide/index.html#graal">Micronaut</a>, <a href="https://medium.com/oracledevs/helidon-flies-faster-with-graalvm-eea85287d2dc">Helidon</a>.
 For these frameworks, GraalVM native images significantly reduce the runtime memory requirements compared to running on HotSpot what makes them the right way to develop cloud-native applications.</p>
 
@@ -171,7 +173,13 @@ For these frameworks, GraalVM native images significantly reduce the runtime mem
 
 <h2 id="how-to-start-with-graalvm">How to start with GraalVM?</h2>
 
-<p>If you want to try the code by yourself, you need to install GraalVM. There are <a href="https://www.graalvm.org/downloads/">two editions</a> of it - <strong>Community Edition (CE)</strong> and <strong>Enterprise Edition (EE)</strong>, for Linux, macOS and recently for Windows. However, native image generation is not yet available for Windows, so I&rsquo;d recommend using official <a href="https://hub.docker.com/r/oracle/graalvm-ce">Docker</a> images instead.</p>
+<p>If you want to try the code by yourself, you need to install GraalVM. There are <a href="https://www.graalvm.org/downloads/">two editions</a> of it - <strong>Community Edition (CE)</strong> and <strong>Enterprise Edition (EE)</strong>, for Linux, macOS and recently for Windows. However, native image generation is not yet available for Windows, so I&rsquo;d recommend using official <a href="https://hub.docker.com/r/oracle/graalvm-ce">Docker</a> images instead and build it inside container.
+As a alternative for Windows users:</p>
+
+<ul>
+<li>You can install <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux for Windows 10</a> and run the compilation in WSL as in linux</li>
+<li>Or, more <a href="https://happylynx.github.io/2019/04/30/graalvm-native-image-on-windows.html">complicated way of doing it directly on Windows</a></li>
+</ul>
 
 <h3 id="native-image-generation">Native image generation</h3>
 
@@ -248,10 +256,18 @@ EOF</pre></div>
 
 <p><strong>What about limitations or drawbacks?</strong></p>
 
-<ul>
-<li>Building CI/CD pipeline is a challenging task as Ahead-of-time compilation takes a lot of time, and if your application is big enough it might takes tens of minutes.</li>
-<li>The native image does no support all Java features - see <a href="https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md">SubstrateVM limitations</a> for details. It is the most challenging part, as those limitations make the process of your application adoption pretty complicated. Especially if you&rsquo;re using frameworks that do not support GraalVM.</li>
-</ul>
+<p>Building CI/CD pipeline is a challenging task as Ahead-of-time compilation takes a lot of time, and if your application is big enough it might takes tens of minutes.</p>
+
+<p>The native image does no support all Java features - see <a href="https://github.com/oracle/graal/blob/master/substratevm/LIMITATIONS.md">SubstrateVM limitations</a> for details. It is the most challenging part, as those limitations make the process of your application adoption pretty complicated.</p>
+
+<p>Native image build process relies on static analysis of which code will be reachable. However, if your code uses <strong>Java Native Interface (JNI)</strong>, <strong>Java reflection,</strong> <strong>dynamic proxy objects</strong> or <strong>class path resources</strong>, those parts cannot be predicted during analysis. Those elements need to be provided to the <code>native-image</code> tool either via configuration files or as tool parameters. See <a href="https://www.graalvm.org/docs/reference-manual/aot-compilation/#image-generation-options"><code>native-image</code> tool options</a> or <a href="https://github.com/oracle/graal/tree/master/substratevm"><strong>SubstrateVM</strong> sub-project</a> markdown pages.</p>
+
+<h2 id="last-but-not-least">Last but not least</h2>
+
+<p>I think it&rsquo;s worth to start exploring what&rsquo;s happening around GraalVM as it opens the whole spectrum of new capabilities. You might argue with the usability of native images because you&rsquo;re losing all the java dynamic. But is it really a problem?
+If you build cloud applications that are mostly run in containers that are not changeable by their nature, why you&rsquo;d need any form of dynamism? Your microservices will not gonna have plugins deployed in runtime. Any code changes to the logic usually result in new image generation.</p>
+
+<p>So, stay tuned. I&rsquo;m going to explore it more in the next posts to show more real examples. I&rsquo;m gonna use Quarkus as a framework of my choice, you will see how to create and run AWS Lambdas as native images, and more.</p>
 
 
 		
